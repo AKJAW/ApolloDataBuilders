@@ -11,6 +11,7 @@ import com.apollographql.apollo3.network.http.HttpInterceptor
 import com.apollographql.apollo3.network.http.HttpInterceptorChain
 import com.apollographql.apollo3.network.http.LoggingInterceptor
 import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okio.ByteString.Companion.encodeUtf8
@@ -42,7 +43,25 @@ internal class GetCountryTest {
     }
 
     @Test
-    fun `Return null on API server Error`() = runTest {
+    fun `Returns Country on API Success`() = runTest {
+        httpInterceptor.response = CountryMockInterceptor.Response.SUCCESS
+
+        val result = systemUnderTest.execute(CODE)
+
+        result?.name shouldBe "United Kingdom"
+    }
+
+    @Test
+    fun `Returns null on Success but no value`() = runTest {
+        httpInterceptor.response = CountryMockInterceptor.Response.SUCCESS_NULL_VALUE
+
+        val result = systemUnderTest.execute(CODE)
+
+        result.shouldBeNull()
+    }
+
+    @Test
+    fun `Returns null on API server Error`() = runTest {
         httpInterceptor.response = CountryMockInterceptor.Response.SERVER_ERROR
 
         val result = systemUnderTest.execute(CODE)
@@ -51,17 +70,8 @@ internal class GetCountryTest {
     }
 
     @Test
-    fun `Return null on Network Error`() = runTest {
+    fun `Returns null on Network Error`() = runTest {
         httpInterceptor.response = CountryMockInterceptor.Response.NETWORK_ERROR
-
-        val result = systemUnderTest.execute(CODE)
-
-        result.shouldBeNull()
-    }
-
-    @Test
-    fun `Return null on Success but no value`() = runTest {
-        httpInterceptor.response = CountryMockInterceptor.Response.SUCCESS_NULL_VALUE
 
         val result = systemUnderTest.execute(CODE)
 
