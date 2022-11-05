@@ -24,7 +24,7 @@ internal class CountryConverterTest {
             country = buildCountry {
                 name = "Poland"
             }
-        }.country!!
+        }.countrySchema!!
 
         val result = systemUnderTest.convert(schema)
 
@@ -44,7 +44,7 @@ internal class CountryConverterTest {
                     },
                 )
             }
-        }.country!!
+        }.countrySchema!!
 
         val result = systemUnderTest.convert(schema)
 
@@ -64,7 +64,7 @@ internal class CountryConverterTest {
                     },
                 )
             }
-        }.country!!
+        }.countrySchema!!
 
         val result = systemUnderTest.convert(schema)
 

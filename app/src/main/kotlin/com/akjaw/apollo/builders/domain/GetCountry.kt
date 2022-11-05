@@ -20,7 +20,7 @@ class GetCountry(
         }
         if (apolloResponse.hasErrors()) return null
 
-        val countrySchema = apolloResponse.data?.country ?: return null
+        val countrySchema = apolloResponse.data?.countrySchema ?: return null
         return countryConverter.convert(countrySchema)
     }
 }
