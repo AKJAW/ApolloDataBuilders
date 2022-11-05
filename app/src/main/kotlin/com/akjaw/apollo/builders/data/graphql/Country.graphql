@@ -1,0 +1,13 @@
+query Country($language: ID!) {
+    countrySchema: country(code: $language) {
+        name
+        languagesSchemas: languages {
+            ...LanguageFragment
+        }
+    }
+}
+
+fragment LanguageFragment on Language {
+    code
+    name
+}
