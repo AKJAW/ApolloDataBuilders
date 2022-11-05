@@ -1,7 +1,8 @@
 query Country($code: ID!) {
-    countrySchema: country(code: $code) {
+    # TODO schemas have a problem, create an off-branch with the issue
+    country(code: $code) {
         name
-        languagesSchemas: languages {
+        languages {
             ...LanguageFragment
         }
     }

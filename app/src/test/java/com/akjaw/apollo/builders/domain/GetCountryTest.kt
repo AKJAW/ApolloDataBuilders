@@ -4,7 +4,6 @@ import com.akjaw.apollo.builders.generated.CountryQuery
 import com.akjaw.apollo.builders.generated.fragment.LanguageFragment
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.Operation
-import com.apollographql.apollo3.api.http.HttpBody
 import com.apollographql.apollo3.api.http.HttpRequest
 import com.apollographql.apollo3.api.http.HttpResponse
 import com.apollographql.apollo3.api.toJsonString
@@ -14,7 +13,6 @@ import com.apollographql.apollo3.network.http.LoggingInterceptor
 import io.kotest.matchers.nulls.shouldBeNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import okio.Buffer
 import okio.ByteString.Companion.encodeUtf8
 import org.junit.Before
 import org.junit.Test
@@ -111,10 +109,10 @@ object Responses {
 
     val SUCCESS =
         CountryQuery.Data(
-            CountryQuery.CountrySchema(
+            CountryQuery.Country(
                 name = "United Kingdom",
-                languagesSchemas = listOf(
-                    CountryQuery.LanguagesSchema(
+                languages = listOf(
+                    CountryQuery.Language(
                         __typename = "Language",
                         languageFragment = LanguageFragment(
                             name = "English"
