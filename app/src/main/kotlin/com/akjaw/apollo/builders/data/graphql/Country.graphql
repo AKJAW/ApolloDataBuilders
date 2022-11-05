@@ -1,5 +1,5 @@
-query Country($language: ID!) {
-    countrySchema: country(code: $language) {
+query Country($code: ID!) {
+    countrySchema: country(code: $code) {
         name
         languagesSchemas: languages {
             ...LanguageFragment
@@ -8,6 +8,5 @@ query Country($language: ID!) {
 }
 
 fragment LanguageFragment on Language {
-    code
     name
 }
