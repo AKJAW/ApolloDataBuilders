@@ -18,8 +18,6 @@ internal class CountryConverterTest {
         systemUnderTest = CountryConverter()
     }
 
-// TODO resolver test???
-
     @Test
     fun `The country name is correctly converted`() {
         val schema = CountryQuery.Data {

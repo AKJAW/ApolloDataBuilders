@@ -21,15 +21,13 @@ type Country {
 
   states: [State!]!
 
-  currentTime: DateTime!
-
-  currentTime2: DateTime!
+  customScalar: CustomScalar!
 }
 
 """
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+A custom scalar for presentation purposes
 """
-scalar DateTime
+scalar CustomScalar
 
 type Continent {
   code: ID!

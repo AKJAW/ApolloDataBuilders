@@ -2,6 +2,8 @@ package com.akjaw.apollo.builders.domain
 
 import com.akjaw.apollo.builders.generated.CountryQuery
 import com.akjaw.apollo.builders.generated.fragment.LanguageFragment
+import com.akjaw.apollo.builders.generated.type.buildCountry
+import com.akjaw.apollo.builders.generated.type.buildLanguage
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.Operation
 import com.apollographql.apollo3.api.http.HttpRequest
@@ -118,19 +120,16 @@ class CountryMockInterceptor : HttpInterceptor {
 object Responses {
 
     val SUCCESS =
-        CountryQuery.Data(
-            CountryQuery.Country(
-                name = "United Kingdom",
+        CountryQuery.Data {
+            country = buildCountry {
+                name = "United Kingdom"
                 languages = listOf(
-                    CountryQuery.Language(
-                        __typename = "Language",
-                        languageFragment = LanguageFragment(
-                            name = "English"
-                        )
-                    )
-                ),
-            )
-        ).toDataJson()
+                    buildLanguage {
+                        name = "English"
+                    }
+                )
+            }
+        }.toDataJson()
 
     const val SUCCESS_NULL_SCHEMA = """{"data":{"countrySchema":null}}"""
 

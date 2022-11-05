@@ -8,6 +8,13 @@ query Country($code: ID!) {
     }
 }
 
+query CountryWithCustomScalar {
+    country(code: "GB") {
+        name
+        customScalar
+    }
+}
+
 fragment LanguageFragment on Language {
     name
 }
