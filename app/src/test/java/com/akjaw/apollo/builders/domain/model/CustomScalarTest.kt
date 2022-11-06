@@ -25,7 +25,7 @@ class CustomScalarTest {
     }
 
     @Test
-    fun `Does not throw exception on custom scalar`() {
+    fun `Throws an exception without resolver`() {
         shouldThrow<IllegalStateException> {
             CountryWithCustomScalarQuery.Data {
                 country = buildCountry {
@@ -53,7 +53,7 @@ class MyFakeResolver : FakeResolver {
     }
 
     override fun resolveMaybeNull(context: FakeResolverContext): Boolean {
-        return false
+        return delegate.resolveMaybeNull(context)
     }
 
     override fun resolveTypename(context: FakeResolverContext): String {

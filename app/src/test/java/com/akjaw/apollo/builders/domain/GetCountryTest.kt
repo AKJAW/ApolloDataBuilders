@@ -1,13 +1,14 @@
 package com.akjaw.apollo.builders.domain
 
 import com.akjaw.apollo.builders.generated.CountryQuery
-import com.akjaw.apollo.builders.generated.fragment.LanguageFragment
+import com.akjaw.apollo.builders.generated.adapter.CountryQuery_ResponseAdapter
 import com.akjaw.apollo.builders.generated.type.buildCountry
 import com.akjaw.apollo.builders.generated.type.buildLanguage
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.Operation
 import com.apollographql.apollo3.api.http.HttpRequest
 import com.apollographql.apollo3.api.http.HttpResponse
+import com.apollographql.apollo3.api.obj
 import com.apollographql.apollo3.api.toJsonString
 import com.apollographql.apollo3.network.http.HttpInterceptor
 import com.apollographql.apollo3.network.http.HttpInterceptorChain
@@ -131,11 +132,16 @@ object Responses {
             }
         }.toDataJson()
 
-    const val SUCCESS_NULL_SCHEMA = """{"data":{"countrySchema":null}}"""
+    val SUCCESS_NULL_SCHEMA = CountryQuery.Data {
+        country = null
+    }.toDataJson()
 
     const val SERVER_ERROR =
         """{"errors":[{"message":"Cannot query field \"capitals\" on type \"Country\". Did you mean \"capital\"?","extensions":{"code":"GRAPHQL_VALIDATION_FAILED"}}]}"""
 
     private fun Operation.Data.toDataJson() =
         """{"data":${this.toJsonString()}}"""
+
+    private fun CountryQuery.Data.toDataJsonKmm() =
+        """{"data":${CountryQuery_ResponseAdapter.Data.obj().toJsonString(this)}}"""
 }
