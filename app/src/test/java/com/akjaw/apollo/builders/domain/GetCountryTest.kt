@@ -121,9 +121,9 @@ object Responses {
 
     val SUCCESS =
         CountryQuery.Data {
-            country = buildCountry {
+            this["countrySchema"] = buildCountry {
                 name = "United Kingdom"
-                languages = listOf(
+                this["languagesSchema"] = listOf(
                     buildLanguage {
                         name = "English"
                     }
